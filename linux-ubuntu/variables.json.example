@@ -4,5 +4,10 @@
         "ram": "4096",
         "cpus": "2",
         "image": "ubuntu/jammy64"
+    },
+
+    "dynatrace_variables":{
+        "host": "",
+        "api_token": ""
     }
 }
