@@ -1,6 +1,5 @@
 {
     "vbox_variables":{
-        "node_count": 4,
         "ram": "4096",
         "cpus": "2",
         "image": "ubuntu/jammy64"
