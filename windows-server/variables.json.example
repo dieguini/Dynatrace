@@ -1,0 +1,6 @@
+{
+    "dynatrace_variables":{
+        "host": "",
+        "api_token": ""
+    }
+}
