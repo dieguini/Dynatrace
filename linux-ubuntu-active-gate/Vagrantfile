@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require 'json'
+
+Vagrant.configure("2") do |config|
+  keys = File.read('./variables.json')
+  parameters = JSON.parse(keys)
+  
+  vbox_variables = parameters['vbox_variables'] # VBox Variables
+  config.vm.box = vbox_variables['image']
+  config.vm.network :forwarded_port, guest: 22, host: 3200, id: 'ssh'
+
+  config.vm.provider :virtualbox do |vb|
+    vb.gui = true
+    vb.memory = vbox_variables['ram']
+    vb.cpus = vbox_variables['cpus']
+  end
+
+  dyna_variables = parameters['dynatrace_variables'] # Dynatrace Variables
+  config.vm.provision "dyna_install_ag", type: "shell", run: "never" do |s|
+    s.path= "scripts/dyna-active-gate-installation.sh"
+    s.args= [
+      dyna_variables['host'], 
+      dyna_variables['api_token'], 
+    ]
+    s.privileged= false
+  end
+end
